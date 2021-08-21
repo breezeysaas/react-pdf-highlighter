@@ -1,15 +1,17 @@
 {
   "name": "react-pdf-highlighter",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Set of React components for PDF annotation",
-  "main": "build/index.js",
+  "main": "dist/index.js",
+  "types": "dist",
   "scripts": {
     "start": "npm run watch",
-    "build": "NODE_ENV=production babel src -d build --copy-files",
-    "watch": "NODE_ENV=development babel --watch src -d build --copy-files",
-    "copy-flow": "flow-copy-source src build",
-    "clean": "rm -rf build",
-    "prepublishOnly": "npm run build && npm run copy-flow"
+    "build": "npm run clean && tsc && npm run copyStyles",
+    "watch": "npm-watch build",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build",
+    "lint": "tsc --noEmit && eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "copyStyles": "cp -r src/style dist/style"
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
@@ -18,20 +20,24 @@
     "react-rnd": "^10.1.10"
   },
   "peerDependencies": {
-    "react": ">=0.14",
-    "react-dom": ">=0.14"
+    "react": ">=0.17",
+    "react-dom": ">=0.17"
   },
   "devDependencies": {
-    "@babel/cli": "^7.14.5",
-    "@babel/core": "^7.10.5",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/preset-flow": "^7.10.4",
-    "@babel/preset-react": "^7.10.4",
-    "flow-bin": "^0.130.0",
-    "flow-copy-source": "^2.0.9",
-    "flow-typed": "^3.2.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "@types/lodash.debounce": "^4.0.6",
+    "@types/react": "^17.0.18",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-pointable": "^1.2.2",
+    "@typescript-eslint/eslint-plugin": "^4.29.2",
+    "@typescript-eslint/parser": "^4.29.2",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "npm-watch": "^0.11.0",
+    "prettier": "^2.3.2",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "typescript": "^4.3.5"
   },
   "author": "Artem Tyurin <artem.tyurin@gmail.com>",
   "license": "MIT",
@@ -42,7 +48,7 @@
     "react-component"
   ],
   "files": [
-    "build",
+    "dist",
     "src"
   ],
   "repository": {
@@ -52,5 +58,19 @@
   "bugs": {
     "url": "https://github.com/agentcooper/react-pdf-highlighter/issues"
   },
-  "homepage": "https://github.com/agentcooper/react-pdf-highlighter#readme"
+  "homepage": "https://github.com/agentcooper/react-pdf-highlighter#readme",
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "js,ts,yaml,yml,json",
+      "ignore": "dist/**/*",
+      "quiet": true,
+      "inherit": true
+    }
+  }
 }

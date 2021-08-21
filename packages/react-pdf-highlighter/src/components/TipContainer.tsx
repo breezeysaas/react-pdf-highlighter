@@ -1,28 +1,29 @@
-// @flow
-
 import React, { Component } from "react";
 
-import type { T_LTWH } from "../types";
+import { T_LTWH } from "../types";
 
 type State = {
-  height: number,
-  width: number
+  height: number;
+  width: number;
 };
 
 type Props = {
-  children: ?React$Element<*>,
-  style: { top: number, left: number, bottom: number },
-  scrollTop: number,
-  pageBoundingRect: T_LTWH
+  children: React.ReactNode;
+  style: { top: number; left: number; bottom: number };
+  scrollTop: number;
+  pageBoundingRect: T_LTWH;
 };
 
-const clamp = (value, left, right) => Math.min(Math.max(value, left), right);
+const clamp = (value: number, left: number, right: number) =>
+  Math.min(Math.max(value, left), right);
 
 class TipContainer extends Component<Props, State> {
   state: State = {
     height: 0,
-    width: 0
+    width: 0,
   };
+
+  container = React.createRef<HTMLDivElement>();
 
   componentDidUpdate(nextProps: Props) {
     if (this.props.children !== nextProps.children) {
@@ -35,13 +36,14 @@ class TipContainer extends Component<Props, State> {
   }
 
   updatePosition = () => {
-    const { container } = this.refs;
-
-    const { offsetHeight, offsetWidth } = container;
+    if (this.container.current == null) {
+      return;
+    }
+    const { offsetHeight, offsetWidth } = this.container.current;
 
     this.setState({
       height: offsetHeight,
-      width: offsetWidth
+      width: offsetWidth,
     });
   };
 
@@ -59,26 +61,26 @@ class TipContainer extends Component<Props, State> {
     const left = clamp(
       style.left - width / 2,
       0,
-      pageBoundingRect.width - width
+      pageBoundingRect.width - width,
     );
 
-    const childrenWithProps = React.Children.map(children, child =>
-      React.cloneElement(child, {
+    const childrenWithProps = React.Children.map(children, (child) =>
+      React.cloneElement(child as any, {
         onUpdate: () => {
           this.setState(
             {
               width: 0,
-              height: 0
+              height: 0,
             },
             () => {
               setTimeout(this.updatePosition, 0);
-            }
+            },
           );
         },
         popup: {
-          position: shouldMove ? "below" : "above"
-        }
-      })
+          position: shouldMove ? "below" : "above",
+        },
+      }),
     );
 
     return (
@@ -87,9 +89,9 @@ class TipContainer extends Component<Props, State> {
         style={{
           visibility: isStyleCalculationInProgress ? "hidden" : "visible",
           top,
-          left
+          left,
         }}
-        ref="container"
+        ref={this.container}
       >
         {childrenWithProps}
       </div>

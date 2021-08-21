@@ -1,8 +1,6 @@
-// @flow
+import type { T_LTWH } from "../types";
 
-import type { T_LTWH } from "../types.js";
-
-const sort = rects =>
+const sort = (rects: Array<T_LTWH>) =>
   rects.sort((A, B) => {
     const top = A.top - B.top;
 
@@ -13,25 +11,26 @@ const sort = rects =>
     return top;
   });
 
-const overlaps = (A, B) => A.left <= B.left && B.left <= A.left + A.width;
+const overlaps = (A: T_LTWH, B: T_LTWH) =>
+  A.left <= B.left && B.left <= A.left + A.width;
 
-const sameLine = (A, B, yMargin = 5) =>
+const sameLine = (A: T_LTWH, B: T_LTWH, yMargin = 5) =>
   Math.abs(A.top - B.top) < yMargin && Math.abs(A.height - B.height) < yMargin;
 
-const inside = (A, B) =>
+const inside = (A: T_LTWH, B: T_LTWH) =>
   A.top > B.top &&
   A.left > B.left &&
   A.top + A.height < B.top + B.height &&
   A.left + A.width < B.left + B.width;
 
-const nextTo = (A, B, xMargin = 10) => {
+const nextTo = (A: T_LTWH, B: T_LTWH, xMargin = 10) => {
   const Aright = A.left + A.width;
   const Bright = B.left + B.width;
 
   return A.left <= B.left && Aright <= Bright && B.left - Aright <= xMargin;
 };
 
-const extendWidth = (A, B) => {
+const extendWidth = (A: T_LTWH, B: T_LTWH) => {
   // extend width of A to cover B
   A.width = Math.max(B.width - A.left + B.left, A.width);
 };
@@ -41,8 +40,8 @@ const optimizeClientRects = (clientRects: Array<T_LTWH>): Array<T_LTWH> => {
 
   const toRemove = new Set();
 
-  const firstPass = rects.filter(rect => {
-    return rects.every(otherRect => {
+  const firstPass = rects.filter((rect) => {
+    return rects.every((otherRect) => {
       return !inside(rect, otherRect);
     });
   });
@@ -50,8 +49,8 @@ const optimizeClientRects = (clientRects: Array<T_LTWH>): Array<T_LTWH> => {
   let passCount = 0;
 
   while (passCount <= 2) {
-    firstPass.forEach(A => {
-      firstPass.forEach(B => {
+    firstPass.forEach((A) => {
+      firstPass.forEach((B) => {
         if (A === B || toRemove.has(A) || toRemove.has(B)) {
           return;
         }
@@ -77,7 +76,7 @@ const optimizeClientRects = (clientRects: Array<T_LTWH>): Array<T_LTWH> => {
     passCount += 1;
   }
 
-  return firstPass.filter(rect => !toRemove.has(rect));
+  return firstPass.filter((rect) => !toRemove.has(rect));
 };
 
 export default optimizeClientRects;

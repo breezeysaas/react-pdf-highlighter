@@ -1,16 +1,14 @@
-// @flow
-
 import React, { Component } from "react";
 
-type Props = {
-  onMoveAway: () => void,
-  paddingX: number,
-  paddingY: number,
-  children: React$Element<*>
-};
+interface Props {
+  onMoveAway: () => void;
+  paddingX: number;
+  paddingY: number;
+  children: React.ReactElement;
+}
 
 class MouseMonitor extends Component<Props> {
-  container: ?HTMLDivElement;
+  container: HTMLDivElement | null | undefined;
   unsubscribe = () => {};
 
   onMouseMove = (event: MouseEvent) => {
@@ -37,7 +35,7 @@ class MouseMonitor extends Component<Props> {
     }
   };
 
-  attachRef = (ref: ?HTMLDivElement) => {
+  attachRef = (ref: HTMLDivElement | null) => {
     this.container = ref;
     this.unsubscribe();
 

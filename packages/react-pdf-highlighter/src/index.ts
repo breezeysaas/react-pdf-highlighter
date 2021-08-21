@@ -1,5 +1,3 @@
-// @flow
-
 import PdfHighlighter from "./components/PdfHighlighter";
 import Tip from "./components/Tip";
 import Highlight from "./components/Highlight";
@@ -14,5 +12,5 @@ export {
   Popup,
   AreaHighlight,
   PdfLoader,
-  setPdfWorker
+  setPdfWorker,
 };

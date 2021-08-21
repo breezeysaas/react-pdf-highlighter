@@ -1,6 +1,5 @@
-// @flow
 import { isHTMLCanvasElement } from "../lib/pdfjs-dom";
-import type { T_LTWH } from "../types.js";
+import type { T_LTWH } from "../types";
 
 const getAreaAsPNG = (canvas: HTMLCanvasElement, position: T_LTWH): string => {
   const { left, top, width, height } = position;
@@ -33,7 +32,7 @@ const getAreaAsPNG = (canvas: HTMLCanvasElement, position: T_LTWH): string => {
     0,
     0,
     width,
-    height
+    height,
   );
 
   return newCanvas.toDataURL("image/png");

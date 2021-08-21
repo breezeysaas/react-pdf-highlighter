@@ -1,24 +1,22 @@
-// @flow
-
 import React, { Component } from "react";
 
 import "../style/Highlight.css";
 
-import type { T_LTWH } from "../types.js";
+import type { T_LTWH } from "../types";
 
 type Props = {
   position: {
-    boundingRect: T_LTWH,
-    rects: Array<T_LTWH>
-  },
-  onClick?: () => void,
-  onMouseOver?: () => void,
-  onMouseOut?: () => void,
+    boundingRect: T_LTWH;
+    rects: Array<T_LTWH>;
+  };
+  onClick?: () => void;
+  onMouseOver?: () => void;
+  onMouseOut?: () => void;
   comment: {
-    emoji: string,
-    text: string
-  },
-  isScrolledTo: boolean
+    emoji: string;
+    text: string;
+  };
+  isScrolledTo: boolean;
 };
 
 class Highlight extends Component<Props> {
@@ -29,7 +27,7 @@ class Highlight extends Component<Props> {
       onMouseOver,
       onMouseOut,
       comment,
-      isScrolledTo
+      isScrolledTo,
     } = this.props;
 
     const { rects, boundingRect } = position;
@@ -43,7 +41,7 @@ class Highlight extends Component<Props> {
             className="Highlight__emoji"
             style={{
               left: 20,
-              top: boundingRect.top
+              top: boundingRect.top,
             }}
           >
             {comment.emoji}

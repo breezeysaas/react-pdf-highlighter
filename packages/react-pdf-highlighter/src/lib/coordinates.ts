@@ -1,5 +1,3 @@
-// @flow
-
 // "viewport" rectangle is { top, left, width, height }
 
 // "scaled" means that data structure stores (0, 1) coordinates.
@@ -8,11 +6,11 @@
 
 import type { T_LTWH, T_Scaled, T_VIEWPORT } from "../types";
 
-type WIDTH_HEIGHT = { width: number, height: number };
+type WIDTH_HEIGHT = { width: number; height: number };
 
 export const viewportToScaled = (
   rect: T_LTWH,
-  { width, height }: WIDTH_HEIGHT
+  { width, height }: WIDTH_HEIGHT,
 ): T_Scaled => {
   return {
     x1: rect.left,
@@ -22,16 +20,16 @@ export const viewportToScaled = (
     y2: rect.top + rect.height,
 
     width,
-    height
+    height,
   };
 };
 
-const pdfToViewport = (pdf, viewport): T_LTWH => {
+const pdfToViewport = (pdf: T_Scaled, viewport: T_VIEWPORT): T_LTWH => {
   const [x1, y1, x2, y2] = viewport.convertToViewportRectangle([
     pdf.x1,
     pdf.y1,
     pdf.x2,
-    pdf.y2
+    pdf.y2,
   ]);
 
   return {
@@ -39,14 +37,14 @@ const pdfToViewport = (pdf, viewport): T_LTWH => {
     top: y1,
 
     width: x2 - x1,
-    height: y1 - y2
+    height: y1 - y2,
   };
 };
 
 export const scaledToViewport = (
   scaled: T_Scaled,
   viewport: T_VIEWPORT,
-  usePdfCoordinates: boolean = false
+  usePdfCoordinates: boolean = false,
 ): T_LTWH => {
   const { width, height } = viewport;
 
@@ -68,6 +66,6 @@ export const scaledToViewport = (
     left: x1,
     top: y1,
     width: x2 - x1,
-    height: y2 - y1
+    height: y2 - y1,
   };
 };

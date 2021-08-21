@@ -1,22 +1,22 @@
-// @flow
-
-import React, { Component } from "react";
+import React, { Component, SyntheticEvent } from "react";
 
 import { Rnd } from "react-rnd";
 
 import "../style/AreaHighlight.css";
 
-import type { T_LTWH, T_ViewportHighlight } from "../types";
+import { T_LTWH, T_ViewportHighlight } from "../types";
 
-type Props = {|
-  highlight: T_ViewportHighlight,
-  onChange: (rect: T_LTWH) => void,
-  isScrolledTo: boolean
-|};
+interface Props {
+  highlight: T_ViewportHighlight;
+  onChange: (rect: T_LTWH) => void;
+  isScrolledTo: boolean;
+  disableEdit?: boolean;
+}
 
 class AreaHighlight extends Component<Props> {
   render() {
-    const { highlight, onChange, isScrolledTo, ...otherProps } = this.props;
+    const { highlight, onChange, isScrolledTo, disableEdit, ...otherProps } =
+      this.props;
 
     return (
       <div
@@ -25,12 +25,14 @@ class AreaHighlight extends Component<Props> {
         }`}
       >
         <Rnd
+          enableResizing={!disableEdit}
+          disableDragging={disableEdit}
           className="AreaHighlight__part"
           onDragStop={(_, data) => {
             const boundingRect = {
               ...highlight.position.boundingRect,
               top: data.y,
-              left: data.x
+              left: data.x,
             };
 
             onChange(boundingRect);
@@ -40,20 +42,20 @@ class AreaHighlight extends Component<Props> {
               top: position.y,
               left: position.x,
               width: ref.offsetWidth,
-              height: ref.offsetHeight
+              height: ref.offsetHeight,
             };
 
             onChange(boundingRect);
           }}
           position={{
             x: highlight.position.boundingRect.left,
-            y: highlight.position.boundingRect.top
+            y: highlight.position.boundingRect.top,
           }}
           size={{
             width: highlight.position.boundingRect.width,
-            height: highlight.position.boundingRect.height
+            height: highlight.position.boundingRect.height,
           }}
-          onClick={event => {
+          onClick={(event: SyntheticEvent) => {
             event.stopPropagation();
             event.preventDefault();
           }}

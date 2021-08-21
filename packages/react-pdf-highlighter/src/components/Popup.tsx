@@ -1,23 +1,21 @@
-// @flow
-
 import React, { Component } from "react";
 
 import MouseMonitor from "./MouseMonitor";
 
 type Props = {
-  onMouseOver: (content: React$Element<*>) => void,
-  popupContent: React$Element<*>,
-  onMouseOut: () => void,
-  children: React$Element<*>
+  onMouseOver: (content: React.ReactElement) => void;
+  popupContent: React.ReactElement;
+  onMouseOut: () => void;
+  children: React.ReactElement;
 };
 
 type State = {
-  mouseIn: boolean
+  mouseIn: boolean;
 };
 
 class Popup extends Component<Props, State> {
   state: State = {
-    mouseIn: false
+    mouseIn: false,
   };
 
   render() {
@@ -40,7 +38,7 @@ class Popup extends Component<Props, State> {
               paddingX={60}
               paddingY={30}
               children={popupContent}
-            />
+            />,
           );
         }}
         onMouseOut={() => {

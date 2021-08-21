@@ -1,5 +1,3 @@
-// @flow
-
 export const getDocument = (elm: any): Document =>
   (elm || {}).ownerDocument || document;
 export const getWindow = (elm: any): typeof window =>
@@ -9,7 +7,7 @@ export const isHTMLElement = (elm: any) =>
 export const isHTMLCanvasElement = (elm: any) =>
   elm instanceof HTMLCanvasElement ||
   elm instanceof getWindow(elm).HTMLCanvasElement;
-export const asElement = (x: any): HTMLElement => (x: HTMLElement);
+export const asElement = (x: any): HTMLElement => x as HTMLElement;
 
 export const getPageFromElement = (target: HTMLElement) => {
   const node = asElement(target.closest(".page"));
@@ -35,7 +33,7 @@ export const getPageFromRange = (range: Range) => {
 
 export const findOrCreateContainerLayer = (
   container: HTMLElement,
-  className: string
+  className: string,
 ) => {
   const doc = getDocument(container);
   let layer = container.querySelector(`.${className}`);

@@ -1,26 +1,24 @@
-// @flow
-
 import React, { Component } from "react";
 
 import "../style/Tip.css";
 
 type State = {
-  compact: boolean,
-  text: string,
-  emoji: string
+  compact: boolean;
+  text: string;
+  emoji: string;
 };
 
 type Props = {
-  onConfirm: (comment: { text: string, emoji: string }) => void,
-  onOpen: () => void,
-  onUpdate?: () => void
+  onConfirm: (comment: { text: string; emoji: string }) => void;
+  onOpen: () => void;
+  onUpdate?: () => void;
 };
 
 class Tip extends Component<Props, State> {
   state: State = {
     compact: true,
     text: "",
-    emoji: ""
+    emoji: "",
   };
 
   // for TipContainer
@@ -51,33 +49,34 @@ class Tip extends Component<Props, State> {
         ) : (
           <form
             className="Tip__card"
-            onSubmit={event => {
+            onSubmit={(event) => {
               event.preventDefault();
               onConfirm({ text, emoji });
             }}
           >
             <div>
               <textarea
-                width="100%"
                 placeholder="Your comment"
                 autoFocus
                 value={text}
-                onChange={event => this.setState({ text: event.target.value })}
-                ref={node => {
+                onChange={(event) =>
+                  this.setState({ text: event.target.value })
+                }
+                ref={(node) => {
                   if (node) {
                     node.focus();
                   }
                 }}
               />
               <div>
-                {["💩", "😱", "😍", "🔥", "😳", "⚠️"].map(_emoji => (
+                {["💩", "😱", "😍", "🔥", "😳", "⚠️"].map((_emoji) => (
                   <label key={_emoji}>
                     <input
                       checked={emoji === _emoji}
                       type="radio"
                       name="emoji"
                       value={_emoji}
-                      onChange={event =>
+                      onChange={(event) =>
                         this.setState({ emoji: event.target.value })
                       }
                     />

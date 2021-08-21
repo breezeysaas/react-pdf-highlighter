@@ -1,9 +1,7 @@
-// @flow
-
-import type { T_LTWH } from "../types.js";
+import type { T_LTWH } from "../types";
 
 const getBoundingRect = (clientRects: Array<T_LTWH>): T_LTWH => {
-  const rects = Array.from(clientRects).map(rect => {
+  const rects = Array.from(clientRects).map((rect) => {
     const { left, top, width, height } = rect;
 
     const X0 = left;
@@ -21,7 +19,7 @@ const getBoundingRect = (clientRects: Array<T_LTWH>): T_LTWH => {
       X1: Math.max(res.X1, rect.X1),
 
       Y0: Math.min(res.Y0, rect.Y0),
-      Y1: Math.max(res.Y1, rect.Y1)
+      Y1: Math.max(res.Y1, rect.Y1),
     };
   }, rects[0]);
 
@@ -31,7 +29,7 @@ const getBoundingRect = (clientRects: Array<T_LTWH>): T_LTWH => {
     left: X0,
     top: Y0,
     width: X1 - X0,
-    height: Y1 - Y0
+    height: Y1 - Y0,
   };
 };
 

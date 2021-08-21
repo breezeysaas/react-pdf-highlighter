@@ -1,8 +1,6 @@
-// @flow
-
 import React, { Component } from "react";
 
-import type { T_PDFJS, T_PDFJS_Document } from "../types";
+import type { T_PDFJS_Document } from "../types";
 
 import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/lib/pdf";
 import PdfjsWorker from "pdfjs-dist/lib/pdf.worker";
@@ -26,24 +24,24 @@ export function setPdfWorker(workerSrcOrClass: any) {
 }
 
 type Props = {
-  url: string,
-  beforeLoad: React$Element<*>,
-  errorMessage?: React$Element<*>,
-  children: (pdfDocument: T_PDFJS_Document) => React$Element<*>,
-  onError?: (error: Error) => void,
-  cMapUrl?: string,
-  cMapPacked?: boolean
+  url: string;
+  beforeLoad: React.ReactElement;
+  errorMessage?: React.ReactElement;
+  children: (pdfDocument: T_PDFJS_Document) => React.ReactElement;
+  onError?: (error: Error) => void;
+  cMapUrl?: string;
+  cMapPacked?: boolean;
 };
 
 type State = {
-  pdfDocument: ?T_PDFJS_Document,
-  error: ?Error
+  pdfDocument: T_PDFJS_Document | null | undefined;
+  error: Error | null | undefined;
 };
 
 class PdfLoader extends Component<Props, State> {
-  state = {
+  state: State = {
     pdfDocument: null,
-    error: null
+    error: null,
   };
 
   documentRef = React.createRef<HTMLElement>();
@@ -90,12 +88,12 @@ class PdfLoader extends Component<Props, State> {
             ...this.props,
             ownerDocument,
             cMapUrl,
-            cMapPacked
-          }).promise.then(pdfDocument => {
+            cMapPacked,
+          }).promise.then((pdfDocument: T_PDFJS_Document) => {
             this.setState({ pdfDocument });
-          })
+          }),
       )
-      .catch(e => this.componentDidCatch(e));
+      .catch((e) => this.componentDidCatch(e));
   }
 
   render() {
