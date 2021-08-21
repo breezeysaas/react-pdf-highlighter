@@ -58,6 +58,8 @@ export type T_ViewportHighlight = {
 } & T_HighlightContent &
   T_HighlightComment;
 
+export type T_ViewportHighlightGeneric<T_HT> = { position: T_Position } & T_HT;
+
 export type T_VIEWPORT = {
   convertToPdfPoint: (x: number, y: number) => Array<number>;
   convertToViewportRectangle: (pdfRectangle: Array<number>) => Array<number>;
@@ -93,7 +95,7 @@ export type T_PDFJS_Document = {
 };
 
 export type T_PDFJS_LinkService = {
-  setDocument: (document: Object) => void;
+  setDocument: (document: Record<string, unknown>) => void;
   setViewer: (viewer: T_PDFJS_Viewer) => void;
 };
 
@@ -103,7 +105,7 @@ export type T_PDFJS = {
       _bindMouse: () => void;
     };
   };
-  PDFViewer: (options: Object) => T_PDFJS_Viewer;
+  PDFViewer: (options: Record<string, unknown>) => T_PDFJS_Viewer;
   PDFLinkService: () => T_PDFJS_LinkService;
   getDocument: (url: string) => Promise<T_PDFJS_Document>;
   disableWorker: boolean;

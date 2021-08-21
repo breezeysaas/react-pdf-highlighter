@@ -4,6 +4,7 @@ import Highlight from "./components/Highlight";
 import Popup from "./components/Popup";
 import AreaHighlight from "./components/AreaHighlight";
 import PdfLoader, { setPdfWorker } from "./components/PdfLoader";
+export * from "./types";
 
 export {
   PdfHighlighter,

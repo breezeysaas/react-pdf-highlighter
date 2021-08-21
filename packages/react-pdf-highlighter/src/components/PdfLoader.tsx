@@ -63,7 +63,7 @@ class PdfLoader extends Component<Props, State> {
     }
   }
 
-  componentDidCatch(error: Error, info?: any) {
+  componentDidCatch(error: Error) {
     const { onError } = this.props;
 
     if (onError) {

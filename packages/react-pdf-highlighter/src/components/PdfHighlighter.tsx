@@ -38,9 +38,8 @@ import {
   T_PDFJS_Viewer,
   T_PDFJS_Document,
   T_PDFJS_LinkService,
+  T_ViewportHighlightGeneric,
 } from "../types";
-
-type T_ViewportHighlight<T_HT> = { position: T_Position } & T_HT;
 
 type State<T_HT> = {
   ghostHighlight:
@@ -54,8 +53,10 @@ type State<T_HT> = {
   range: Range | undefined | null;
   tip:
     | {
-        highlight: T_ViewportHighlight<T_HT>;
-        callback: (highlight: T_ViewportHighlight<T_HT>) => React.ReactElement;
+        highlight: T_ViewportHighlightGeneric<T_HT>;
+        callback: (
+          highlight: T_ViewportHighlightGeneric<T_HT>,
+        ) => React.ReactElement;
       }
     | undefined
     | null;
@@ -67,11 +68,13 @@ type State<T_HT> = {
 
 type Props<T_HT> = {
   highlightTransform: (
-    highlight: T_ViewportHighlight<T_HT>,
+    highlight: T_ViewportHighlightGeneric<T_HT>,
     index: number,
     setTip: (
-      highlight: T_ViewportHighlight<T_HT>,
-      callback: (highlight: T_ViewportHighlight<T_HT>) => React.ReactElement,
+      highlight: T_ViewportHighlightGeneric<T_HT>,
+      callback: (
+        highlight: T_ViewportHighlightGeneric<T_HT>,
+      ) => React.ReactElement,
     ) => void,
     hideTip: () => void,
     viewportToScaled: (rect: T_LTWH) => T_Scaled,
@@ -232,7 +235,7 @@ class PdfHighlighter extends PureComponent<
   }
 
   showTip(
-    highlight: T_ViewportHighlight<T_Highlight>,
+    highlight: T_ViewportHighlightGeneric<T_Highlight>,
     content: React.ReactElement,
   ) {
     const { isCollapsed, ghostHighlight, isAreaSelectionInProgress } =
@@ -307,11 +310,12 @@ class PdfHighlighter extends PureComponent<
           <div>
             {(highlightsByPage[String(pageNumber)] || []).map(
               ({ position, id, ...highlight }, index) => {
-                const viewportHighlight: T_ViewportHighlight<T_Highlight> = {
-                  id,
-                  position: this.scaledPositionToViewport(position) as any,
-                  ...highlight,
-                };
+                const viewportHighlight: T_ViewportHighlightGeneric<T_Highlight> =
+                  {
+                    id,
+                    position: this.scaledPositionToViewport(position) as any,
+                    ...highlight,
+                  };
 
                 if (tip && tip.highlight.id === String(id)) {
                   this.showTip(tip.highlight, tip.callback(viewportHighlight));

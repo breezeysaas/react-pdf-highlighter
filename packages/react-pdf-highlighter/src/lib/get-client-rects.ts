@@ -5,9 +5,9 @@ import optimizeClientRects from "./optimize-client-rects";
 const getClientRects = (
   range: Range,
   containerEl: HTMLElement,
-  shouldOptimize: boolean = true,
+  shouldOptimize = true,
 ): Array<T_LTWH> => {
-  let clientRects = Array.from(range.getClientRects());
+  const clientRects = Array.from(range.getClientRects());
 
   const offset = containerEl.getBoundingClientRect();
 

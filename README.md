@@ -116,3 +116,12 @@ import {setPdfWorker} from 'react-pdf-highlighter';
 setPdfWorker(PDFWorker);
 ...
 ```
+
+# react-pdf-highlighter Development
+
+#### Publish the package
+
+```
+npm login
+npm publish --access public
+```

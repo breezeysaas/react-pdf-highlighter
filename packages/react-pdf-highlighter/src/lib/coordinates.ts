@@ -44,7 +44,7 @@ const pdfToViewport = (pdf: T_Scaled, viewport: T_VIEWPORT): T_LTWH => {
 export const scaledToViewport = (
   scaled: T_Scaled,
   viewport: T_VIEWPORT,
-  usePdfCoordinates: boolean = false,
+  usePdfCoordinates = false,
 ): T_LTWH => {
   const { width, height } = viewport;
 
