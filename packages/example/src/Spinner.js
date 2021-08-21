@@ -2,7 +2,7 @@ import React from "react";
 
 import "./style/Spinner.css";
 
-export default () => {
+const Spinner = () => {
   return (
     <div
       style={{
@@ -28,3 +28,5 @@ export default () => {
     </div>
   );
 };
+
+export default Spinner;

@@ -11,7 +11,7 @@ import {
   Popup,
   AreaHighlight,
   setPdfWorker
-} from "react-pdf-highlighter";
+} from "@the-ksquare-group/react-pdf-highlighter";
 
 import testHighlights from "./test-highlights";
 
@@ -71,7 +71,7 @@ class App extends Component<Props, State> {
     });
   };
 
-  scrollViewerTo = (highlight) => {};
+  scrollViewerTo = highlight => {};
 
   scrollToHighlightFromHash = () => {
     const highlight = this.getHighlightById(parseIdFromHash());
