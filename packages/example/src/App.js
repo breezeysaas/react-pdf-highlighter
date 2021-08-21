@@ -1,4 +1,3 @@
-// @flow
 /* eslint import/no-webpack-loader-syntax: 0 */
 
 import React, { Component } from "react";
@@ -19,21 +18,9 @@ import testHighlights from "./test-highlights";
 import Spinner from "./Spinner";
 import Sidebar from "./Sidebar";
 
-import type {
-  T_Highlight,
-  T_NewHighlight
-} from "react-pdf-highlighter/src/types";
-
 import "./style/App.css";
 
 setPdfWorker(PDFWorker);
-
-type Props = {};
-
-type State = {
-  url: string,
-  highlights: Array<T_Highlight>
-};
 
 const getNextId = () => String(Math.random()).slice(2);
 
@@ -84,7 +71,7 @@ class App extends Component<Props, State> {
     });
   };
 
-  scrollViewerTo = (highlight: any) => {};
+  scrollViewerTo = (highlight) => {};
 
   scrollToHighlightFromHash = () => {
     const highlight = this.getHighlightById(parseIdFromHash());
@@ -102,13 +89,13 @@ class App extends Component<Props, State> {
     );
   }
 
-  getHighlightById(id: string) {
+  getHighlightById(id) {
     const { highlights } = this.state;
 
     return highlights.find(highlight => highlight.id === id);
   }
 
-  addHighlight(highlight: T_NewHighlight) {
+  addHighlight(highlight) {
     const { highlights } = this.state;
 
     console.log("Saving highlight", highlight);
@@ -118,7 +105,7 @@ class App extends Component<Props, State> {
     });
   }
 
-  updateHighlight(highlightId: string, position: Object, content: Object) {
+  updateHighlight(highlightId, position, content) {
     console.log("Updating highlight", highlightId, position, content);
 
     this.setState({

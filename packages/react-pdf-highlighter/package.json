@@ -1,6 +1,6 @@
 {
   "name": "@the-ksquare-group/react-pdf-highlighter",
-  "version": "5.0.0-beta2",
+  "version": "5.0.0",
   "description": "Set of React components for PDF annotation",
   "main": "dist/index.js",
   "types": "dist",
