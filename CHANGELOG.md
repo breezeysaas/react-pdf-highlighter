@@ -1,3 +1,11 @@
+# 5.0.0
+
+* Ported to TypeScript
+* Exported internal types
+* Added "disableEdit" prop for disabling AreaHighlight resizing and movement
+* Removed react-pointable
+* Added lint command, formatted code and fixed lint errors
+
 # 3.0.0
 
 * Update PDF.js dependency to 2.2.228.
